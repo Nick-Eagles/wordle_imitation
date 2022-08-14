@@ -8,7 +8,9 @@ display_settings = {
     'hit_color' : (0, 255, 0),
     'misplace_color' : (255, 255, 0),
     'border_color': (20, 20, 20),
-    'board_dimensions': (5, 7)
+    'board_dimensions': (5, 7),
+    'font': pygame.font.SysFont(None, 25),
+    'font_color': (50, 50, 50)
 }
 
 #   Given display settings, return (screen, board)
@@ -22,9 +24,10 @@ def start(display_settings):
     #
     return (screen, np.full(display_settings['board_dimensions'], ''))
 
-#   Update the display given the current game board. So far, only handles square
-#   color-- you can't actually see any letters yet!
+#   Update the display given the current game board
 def display_board(game_board, screen, display_settings, word):
+    assert len(word) == game_board.shape[1], "Incorrect word length for board."
+    #
     #   Draw the squares containing each letter
     for row in range(display_settings['board_dimensions'][0]):
         for col in range(display_settings['board_dimensions'][1]):
@@ -49,6 +52,19 @@ def display_board(game_board, screen, display_settings, word):
                     display_settings['square_size']
                 )
             )
+            #
+            #   Add the letter in the center of the square
+            if game_board[row, col] != '':
+                text = display_settings['font'].render(
+                    game_board[row, col], True, display_settings['font_color']
+                )
+                screen.blit(
+                    text, 
+                    (
+                        (row + 0.5) * display_settings['square_size'],
+                        (col + 0.5) * display_settings['square_size']
+                    )
+                )
     #
     #   Draw horizontal lines to divide the squares visually
     for row in range(1, display_settings['board_dimensions'][0]):
@@ -76,4 +92,9 @@ def display_board(game_board, screen, display_settings, word):
     pygame.display.update()
 
 screen, board = start(display_settings)
-display_board(board, screen, display_settings, 'aaagffff')
+display_board(board, screen, display_settings, 'aaadfgr')
+
+#   Adding word to display
+text = display_settings['font'].render('hi', True, display_settings['font_color'])
+screen.blit(text, (50, 50))
+pygame.display.update()
