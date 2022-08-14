@@ -49,8 +49,8 @@ def display_board(game_board, screen, display_settings, word):
                 screen.blit(
                     text, 
                     (
-                        (row + 0.5) * display_settings['square_size'],
-                        (col + 0.5) * display_settings['square_size']
+                        (col + 0.5) * display_settings['square_size'],
+                        (row + 0.5) * display_settings['square_size']
                     )
                 )
     
