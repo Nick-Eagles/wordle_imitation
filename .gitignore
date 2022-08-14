@@ -2,3 +2,4 @@ installation/wordle_env
 data/lemmas_60k.txt
 data/wordFrequency.xlsx
 data/cleaned_word_list.csv
+__pycache__
