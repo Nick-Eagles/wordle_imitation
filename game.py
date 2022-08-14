@@ -7,7 +7,7 @@ import display
 word_path = 'data/cleaned_word_list.csv'
 
 global_settings = {
-    'num_guesses': 4,
+    'num_guesses': 5,
     'num_letters': 5,
     'freq_cutoff': 200
 }
@@ -22,7 +22,7 @@ display_settings = {
     'board_dimensions': (
         global_settings['num_guesses'], global_settings['num_letters']
     ),
-    'font_size': 25,
+    'font_size': 40,
     'font_color': (50, 50, 50)
 }
 
