@@ -7,6 +7,5 @@ conda create -y -p $PWD/wordle_env python=3.8
 
 #   Add packages we'll need
 conda activate $PWD/wordle_env
-python -m pip install pandas
-python -m pip install openpyxl
+python -m pip install pandas openpyxl pygame
 conda deactivate
