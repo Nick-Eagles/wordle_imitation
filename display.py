@@ -20,7 +20,7 @@ def start(display_settings):
     return (screen, np.full(display_settings['board_dimensions'], ''))
 
 #   Update the display given the current game board
-def display_board(game_board, screen, display_settings, word):
+def display_board(game_board, screen, display_settings, word, empty_row):
     assert len(word) == game_board.shape[1], "Incorrect word length for board."
     
     #   Draw the squares containing each letter
@@ -73,6 +73,18 @@ def display_board(game_board, screen, display_settings, word):
 
     for r, row in enumerate(KEYBOARD):
         for c, letter in enumerate(row):
+            #   Color this square appropriately based on Wordle rules
+            if empty_row == 0:
+                color = display_settings['empty_color']
+            elif any([(game_board[empty_row - 1, x] == letter) and (game_board[empty_row - 1, x] == word[x]) for x in range(game_board.shape[1])]):
+                color = display_settings['hit_color']
+            elif any([(game_board[empty_row - 1, x] == letter) and (game_board[empty_row - 1, x] in word) for x in range(game_board.shape[1])]):
+                color = display_settings['misplace_color']
+            elif letter in game_board:
+                color = display_settings['miss_color']
+            else:
+                color = display_settings['empty_color']
+
             draw_square(
                 screen,
                 (
@@ -80,7 +92,7 @@ def display_board(game_board, screen, display_settings, word):
                     r * display_settings['square_size'] / 2
                 ),
                 display_settings['square_size'] / 2,
-                (255, 255, 255), letter,
+                color, letter,
                 display_settings['font_size'] / 2, display_settings['font_color']
             )
 
