@@ -8,6 +8,10 @@ import display
 
 word_path = 'data/cleaned_word_list.csv'
 
+################################################################################
+#   Settings
+################################################################################
+
 global_settings = {
     'num_guesses': 5,
     'num_letters': 6,
@@ -28,6 +32,10 @@ display_settings = {
     'font_color': (50, 50, 50),
     'keyboard_gap': 10
 }
+
+################################################################################
+#   Functions
+################################################################################
 
 #   Modify the board given the current guess. Return the game status: see
 #   'board_status'
@@ -85,6 +93,10 @@ def input_guess(global_settings):
         first_run = False
 
     return guess.lower()
+
+################################################################################
+#   Main
+################################################################################
 
 #   Initialize the screen
 screen, board = display.start(display_settings)
