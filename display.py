@@ -44,13 +44,14 @@ def display_board(game_board, screen, display_settings, word):
             #   Add the letter in the center of the square
             if game_board[row, col] != '':
                 text = display_settings['font'].render(
-                    game_board[row, col], True, display_settings['font_color']
+                    game_board[row, col].upper(), True, display_settings['font_color']
                 )
+                offset = display_settings['font_size'] / 4
                 screen.blit(
                     text, 
                     (
-                        (col + 0.5) * display_settings['square_size'],
-                        (row + 0.5) * display_settings['square_size']
+                        (col + 0.5) * display_settings['square_size'] - offset,
+                        (row + 0.5) * display_settings['square_size'] - offset
                     )
                 )
     

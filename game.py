@@ -8,7 +8,7 @@ word_path = 'data/cleaned_word_list.csv'
 
 global_settings = {
     'num_guesses': 5,
-    'num_letters': 5,
+    'num_letters': 6,
     'freq_cutoff': 200
 }
 
@@ -22,7 +22,7 @@ display_settings = {
     'board_dimensions': (
         global_settings['num_guesses'], global_settings['num_letters']
     ),
-    'font_size': 40,
+    'font_size': 80,
     'font_color': (50, 50, 50)
 }
 
