@@ -2,6 +2,7 @@ import pygame
 import pandas as pd
 import random
 import time
+import string
 
 import display
 
@@ -66,6 +67,24 @@ def board_status(board, word):
         #   In all other situations, the game is still going
         return 0
 
+#   Given global settings, return a valid guess of the hidden word by the user
+def input_guess(global_settings):
+    valid_input = False
+    first_run = True
+
+    while not valid_input:
+        if first_run:
+            message = 'Next guess:'
+        else:
+            message = 'Invalid guess; try again:'
+
+        guess = input(message)
+        if len(guess) == global_settings['num_letters'] and all([x.lower() in string.ascii_lowercase for x in guess]):
+            valid_input = True
+
+        first_run = False
+
+    return guess.lower()
 
 #   Initialize the screen
 screen, board = display.start(display_settings)
@@ -84,7 +103,7 @@ hidden_word = words.iloc[random.randint(0, words.shape[0] - 1)]['lemma']
 #   Play wordle
 status = 0
 while status == 0:
-    guess = input('Next guess:')
+    guess = input_guess(global_settings)
     status = next_guess(board, guess, hidden_word)
     display.display_board(board, screen, display_settings, hidden_word, get_empty_row(board))
 
