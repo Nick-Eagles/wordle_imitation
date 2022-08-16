@@ -1,14 +1,21 @@
 import pygame
 import numpy as np
 
+KEYBOARD = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm']
+
 #   Given display settings, return (screen, board)
 def start(display_settings):
+    keyboard_width = max([len(x) for x in KEYBOARD]) / 2
+    width = (display_settings['board_dimensions'][1] + keyboard_width) * display_settings['square_size'] + display_settings['keyboard_gap']
+
     #   Initialize the display
     pygame.init()
-    screen = pygame.display.set_mode((
-        display_settings['board_dimensions'][1] * display_settings['square_size'],
-        display_settings['board_dimensions'][0] * display_settings['square_size']
-    ))
+    screen = pygame.display.set_mode(
+        (
+            width,
+            (display_settings['board_dimensions'][0] + 1.5) * display_settings['square_size']
+        )
+    )
     
     return (screen, np.full(display_settings['board_dimensions'], ''))
 
@@ -30,30 +37,15 @@ def display_board(game_board, screen, display_settings, word):
                 color = display_settings['miss_color']
             
             #   Draw this square
-            pygame.draw.rect(
+            draw_square(
                 screen,
-                color,
-                pygame.Rect(
+                (
                     col * display_settings['square_size'],
-                    row * display_settings['square_size'],
-                    display_settings['square_size'], 
-                    display_settings['square_size']
-                )
+                    row * display_settings['square_size']
+                ),
+                display_settings['square_size'], color, game_board[row, col],
+                display_settings['font_size'], display_settings['font_color']
             )
-            
-            #   Add the letter in the center of the square
-            if game_board[row, col] != '':
-                text = display_settings['font'].render(
-                    game_board[row, col].upper(), True, display_settings['font_color']
-                )
-                offset = display_settings['font_size'] / 4
-                screen.blit(
-                    text, 
-                    (
-                        (col + 0.5) * display_settings['square_size'] - offset,
-                        (row + 0.5) * display_settings['square_size'] - offset
-                    )
-                )
     
     #   Draw horizontal lines to divide the squares visually
     for row in range(1, display_settings['board_dimensions'][0]):
@@ -78,4 +70,39 @@ def display_board(game_board, screen, display_settings, word):
                 display_settings['square_size'] * display_settings['board_dimensions'][0]
             )
         )
+
+    for r, row in enumerate(KEYBOARD):
+        for c, letter in enumerate(row):
+            draw_square(
+                screen,
+                (
+                    c * display_settings['square_size'] / 2 + display_settings['square_size'] * display_settings['board_dimensions'][1] + display_settings['keyboard_gap'],
+                    r * display_settings['square_size'] / 2
+                ),
+                display_settings['square_size'] / 2,
+                (255, 255, 255), letter,
+                display_settings['font_size'] / 2, display_settings['font_color']
+            )
+
     pygame.display.update()
+
+def draw_square(screen, start, square_size, square_color, letter, font_size, font_color):
+    #   Draw this square
+    pygame.draw.rect(
+        screen,
+        square_color,
+        pygame.Rect(start[0], start[1], square_size, square_size)
+    )
+    
+    #   Add the letter in the center of the square
+    text = pygame.font.SysFont(None, int(font_size)).render(
+        letter.upper(), True, font_color
+    )
+    if text != '':
+        screen.blit(
+            text, 
+            (
+                start[0] + 0.5 * square_size - font_size / 4,
+                start[1] + 0.5 * square_size - font_size / 4
+            )
+        )

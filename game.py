@@ -23,7 +23,8 @@ display_settings = {
         global_settings['num_guesses'], global_settings['num_letters']
     ),
     'font_size': 80,
-    'font_color': (50, 50, 50)
+    'font_color': (50, 50, 50),
+    'keyboard_gap': 10
 }
 
 #   Modify the board given the current guess. Return 1 if there are no guesses
