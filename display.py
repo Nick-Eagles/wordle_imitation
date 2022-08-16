@@ -5,6 +5,8 @@ KEYBOARD = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm']
 
 #   Given display settings, return (screen, board)
 def start(display_settings):
+    #   Width of the keyboard portion the screen and width of the whole screen,
+    #   respectively
     keyboard_width = max([len(x) for x in KEYBOARD]) / 2
     width = (display_settings['board_dimensions'][1] + keyboard_width) * display_settings['square_size'] + display_settings['keyboard_gap']
 
@@ -71,9 +73,11 @@ def display_board(game_board, screen, display_settings, word, empty_row):
             )
         )
 
+    #   Display the keyboard showing which letters have been used and which have
+    #   been successful
     for r, row in enumerate(KEYBOARD):
         for c, letter in enumerate(row):
-            #   Color this square appropriately based on Wordle rules
+            #   Color the square for this letter appropriately
             if empty_row == 0:
                 color = display_settings['empty_color']
             elif any([(game_board[empty_row - 1, x] == letter) and (game_board[empty_row - 1, x] == word[x]) for x in range(game_board.shape[1])]):
@@ -85,19 +89,31 @@ def display_board(game_board, screen, display_settings, word, empty_row):
             else:
                 color = display_settings['empty_color']
 
+            #   Display the square for this keyboard letter
             draw_square(
                 screen,
                 (
                     c * display_settings['square_size'] / 2 + display_settings['square_size'] * display_settings['board_dimensions'][1] + display_settings['keyboard_gap'],
                     r * display_settings['square_size'] / 2
                 ),
-                display_settings['square_size'] / 2,
-                color, letter,
+                display_settings['square_size'] / 2, color, letter,
                 display_settings['font_size'] / 2, display_settings['font_color']
             )
 
     pygame.display.update()
 
+#   Display a colored square containing a centered letter and return None.
+#
+#   screen: the display, created with 'pygame.display.set_mode'
+#   start: a 2-tuple of integers giving the top left coordinates of the square
+#   square_size: side length of the square
+#   square_color: a 3-tuple of integers, each in [0, 255], giving RGB color for
+#                 the square
+#   letter: a character to display in the square
+#   font_size: font size (integer) of the letter to pass to
+#              'pygame.font.SysFont'
+#   font_color: a 3-tuple of integers, each in [0, 255], giving RGB color for
+#               the letter in the square
 def draw_square(screen, start, square_size, square_color, letter, font_size, font_color):
     #   Draw this square
     pygame.draw.rect(
