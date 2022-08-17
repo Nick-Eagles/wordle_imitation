@@ -1,0 +1,11 @@
+name: wordle_env
+channels:
+  - defaults
+dependencies:
+  - pip=22.1.2
+  - python=3.8.13
+  - pip:
+    - numpy==1.23.2
+    - openpyxl==3.0.10
+    - pandas==1.4.3
+    - pygame==2.1.2
