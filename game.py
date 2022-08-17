@@ -13,8 +13,8 @@ word_path = 'data/cleaned_word_list.csv'
 ################################################################################
 
 global_settings = {
-    'num_guesses': 5,
-    'num_letters': 6,
+    'num_guesses': 6,
+    'num_letters': 5,
     'freq_cutoff': 200
 }
 
