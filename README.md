@@ -4,7 +4,7 @@ An imitation of the [Wordle game](https://www.nytimes.com/games/wordle/index.htm
 
 ## Installation
 
-`world_imitation` is a collection of python scripts; it is recommended to build a conda environment (or python virtual environment) in which to install dependencies and execute the program. An `environment.yml` is provided in this repository for this purpose.
+`wordle_imitation` is a collection of python scripts; it is recommended to build a conda environment (or python virtual environment) in which to install dependencies and execute the program. An `environment.yml` is provided in this repository for this purpose.
 
 ```
 conda env create -f environment.yml
