@@ -29,4 +29,4 @@ Display settings affecting board coloring and positioning can be similarly chang
 
 The set of possible hidden words is based on a small set of the [COCA dataset](https://www.english-corpora.org/coca/), made available [here](https://www.wordfrequency.info/samples.asp). The publicly available words from the top 60,000 lemmas, retrieved [here](https://github.com/Nick-Eagles/wordle_imitation/blob/e734b141ac9e6f9e8a6b703b3c76895be3eee084/data/download.sh) are gathered and pre-processed to yield 9,430 potential hidden words. This is further filtered down depending on the user settings `global_settings['num_letters']` and `global_settings['freq_cutoff']`  (see "Configuration") to yield a smaller set of sufficiently common words of the desired length.
 
-The game board is made possible by `pygame`.
+The game board is made possible by [`pygame`](https://www.pygame.org).
